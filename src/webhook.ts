@@ -1,6 +1,7 @@
 import {Inputs} from "./inputs";
 import {Tests} from "./tests";
 import * as github from "@actions/github";
+import * as axios from "axios";
 
 interface Webhook {
     content?: string,
@@ -69,5 +70,5 @@ export async function sendWebhook(tests: Tests, inputs: Inputs) {
         }]
     }
 
-
+    await axios.default.post(inputs.webhook, webhook);
 }
