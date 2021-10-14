@@ -1,0 +1,26 @@
+name: Discord Reporter
+description: Reports build and test results to Discord via webhooks
+author: Team Galacticraft
+
+branding:
+  color: blue
+  icon: message-square
+
+inputs:
+  webhook:
+    required: true
+    description: The Discord-provided webhook url.
+  outcome:
+    required: true
+    description: Outcome of previous step, use ${{ steps.<build step>.outcome }}.
+  token:
+    required: true
+    description: Github token, use ${{ secrets.GITHUB_TOKEN }}.
+  tests:
+    required: false
+    description: The directory containing JUnit5 TEST-*.xml files.
+    default: "build/test-results/test/"
+
+runs:
+  using: node12
+  main: dist/index.js
