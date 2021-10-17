@@ -37,11 +37,12 @@ export async function parseTests(dir: string): Promise<Tests> {
             ignoreAttributes: false,
             attributeNamePrefix: "attr_"
         });
-        core.info(JSON.stringify(jsonObj));
 
-        tests.total += Number(jsonObj.testsuite.attr_tests);
-        tests.failed += Number(jsonObj.testsuite.attr_failures);
-        tests.skipped += Number(jsonObj.testsuite.attr_skipped);
+        if(jsonObj !== undefined && jsonObj !== null) {
+            tests.total += Number(jsonObj.testsuite.attr_tests);
+            tests.failed += Number(jsonObj.testsuite.attr_failures);
+            tests.skipped += Number(jsonObj.testsuite.attr_skipped);
+        }
     }
 
     return tests;
