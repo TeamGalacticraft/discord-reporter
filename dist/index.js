@@ -84,6 +84,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseTests = void 0;
 const parser = __nccwpck_require__(7448);
 const glob = __nccwpck_require__(8090);
+const core = __nccwpck_require__(2186);
 function parseTests(dir) {
     var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -102,6 +103,7 @@ function parseTests(dir) {
                     ignoreAttributes: false,
                     attributeNamePrefix: "attr_"
                 });
+                core.info(JSON.stringify(jsonObj));
                 tests.total += Number(jsonObj.testsuite.attr_tests);
                 tests.failed += Number(jsonObj.testsuite.attr_failures);
                 tests.skipped += Number(jsonObj.testsuite.attr_skipped);

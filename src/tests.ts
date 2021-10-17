@@ -1,10 +1,26 @@
 import * as parser from "fast-xml-parser";
 import * as glob from "@actions/glob";
+import * as core from "@actions/core";
 
 export interface Tests {
     total: number,
     failed: number
     skipped: number
+}
+
+interface JUnitTestsuite {
+    testsuite: {
+        attr_failures: number,
+        attr_skipped: number,
+        attr_tests: number,
+        attr_time: number,
+        attr_timestamp: string
+        testcase: {
+            attr_classname: string,
+            attr_name: string,
+            attr_time: number
+        }[]
+    }
 }
 
 export async function parseTests(dir: string): Promise<Tests> {
@@ -17,23 +33,11 @@ export async function parseTests(dir: string): Promise<Tests> {
     }
 
     for await (const file of globber.globGenerator()) {
-        const jsonObj: {
-            testsuite: {
-                attr_failures: number,
-                attr_skipped: number,
-                attr_tests: number,
-                attr_time: number,
-                attr_timestamp: string
-                testcase: {
-                    attr_classname: string,
-                    attr_name: string,
-                    attr_time: number
-                }[]
-            }
-        } = parser.parse(file, {
+        const jsonObj: JUnitTestsuite = parser.parse(file, {
             ignoreAttributes: false,
             attributeNamePrefix: "attr_"
         });
+        core.info(JSON.stringify(jsonObj));
 
         tests.total += Number(jsonObj.testsuite.attr_tests);
         tests.failed += Number(jsonObj.testsuite.attr_failures);
