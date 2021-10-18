@@ -84,7 +84,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseTests = void 0;
 const parser = __nccwpck_require__(7448);
 const glob = __nccwpck_require__(8090);
-const core = __nccwpck_require__(2186);
+const fs_1 = __nccwpck_require__(5747);
 const isEmptyObject = (obj) => Object.getOwnPropertyNames(obj).length === 0 &&
     Object.getOwnPropertySymbols(obj).length === 0 &&
     Object.getPrototypeOf(obj) === Object.prototype;
@@ -102,8 +102,8 @@ function parseTests(dir) {
         try {
             for (var _b = __asyncValues(globber.globGenerator()), _c; _c = yield _b.next(), !_c.done;) {
                 const file = _c.value;
-                core.info(file);
-                const obj = parser.parse(file, {
+                const data = yield fs_1.promises.readFile(file);
+                const obj = parser.parse(data.toString(), {
                     ignoreAttributes: false,
                     attributeNamePrefix: "attr_"
                 });

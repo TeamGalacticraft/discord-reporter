@@ -1,6 +1,6 @@
 import * as parser from "fast-xml-parser";
 import * as glob from "@actions/glob";
-import * as core from "@actions/core";
+import { promises as fs } from "fs";
 
 export interface Tests {
     total: number,
@@ -38,8 +38,8 @@ export async function parseTests(dir: string): Promise<Tests> {
     }
 
     for await (const file of globber.globGenerator()) {
-        core.info(file)
-        const obj: JUnitTestsuite = parser.parse(file, {
+        const data = await fs.readFile(file);
+        const obj: JUnitTestsuite = parser.parse(data.toString(), {
             ignoreAttributes: false,
             attributeNamePrefix: "attr_"
         });
