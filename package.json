@@ -31,7 +31,7 @@
     "build": "tsc",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "prepublish": "npm run build",
-    "package": "ncc build --source-map --license licenses.txt"
+    "package": "tsc && ncc build --source-map --license licenses.txt"
   },
   "devDependencies": {
     "@types/node": "^16.11.1",
