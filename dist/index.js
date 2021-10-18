@@ -162,6 +162,8 @@ function sendWebhook(tests, inputs) {
                         name: inputs.outcome == "success" ? "Build Succeeded" : inputs.outcome == "failure" ? "Build Failed" : "Build Unknown",
                         icon_url: `https://i.joezwet.dev/build-${(inputs.outcome == "success" || inputs.outcome == "failure") ? inputs.outcome : "unknown"}.svg`
                     },
+                    title: `${github.context.repo.owner}/${github.context.repo.repo}`,
+                    url: `https://github.com/${github.context.repo.owner}/${github.context.repo.repo}`,
                     description: `[\`${github.context.sha.substr(0, 7)}\`](${(_a = commit.data.items[0]) === null || _a === void 0 ? void 0 : _a.html_url}) ${commit.data.items[0].commit.message.split("\n")[0]}`,
                     fields: tests.total == 0 ? [] : [
                         {
