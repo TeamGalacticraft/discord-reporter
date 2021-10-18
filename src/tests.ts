@@ -23,6 +23,11 @@ interface JUnitTestsuite {
     }
 }
 
+const isEmptyObject = (obj: any) =>
+    Object.getOwnPropertyNames(obj).length === 0 &&
+    Object.getOwnPropertySymbols(obj).length === 0 &&
+    Object.getPrototypeOf(obj) === Object.prototype;
+
 export async function parseTests(dir: string): Promise<Tests> {
     if (dir.endsWith("/")) dir = dir.substr(0, dir.length - 1);
     const globber = await glob.create(`${dir}/TEST-*.xml`);
@@ -33,16 +38,16 @@ export async function parseTests(dir: string): Promise<Tests> {
     }
 
     for await (const file of globber.globGenerator()) {
-        const jsonObj: JUnitTestsuite = parser.parse(file, {
+        const obj: JUnitTestsuite = parser.parse(file, {
             ignoreAttributes: false,
             attributeNamePrefix: "attr_"
         });
 
-        if(jsonObj !== undefined && jsonObj !== null) {
-            core.info(jsonObj.toString())
-            tests.total += Number(jsonObj.testsuite.attr_tests);
-            tests.failed += Number(jsonObj.testsuite.attr_failures);
-            tests.skipped += Number(jsonObj.testsuite.attr_skipped);
+        if(!isEmptyObject(obj)) {
+            core.info(obj.toString())
+            tests.total += Number(obj.testsuite.attr_tests);
+            tests.failed += Number(obj.testsuite.attr_failures);
+            tests.skipped += Number(obj.testsuite.attr_skipped);
         }
     }
 

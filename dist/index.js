@@ -85,6 +85,9 @@ exports.parseTests = void 0;
 const parser = __nccwpck_require__(7448);
 const glob = __nccwpck_require__(8090);
 const core = __nccwpck_require__(2186);
+const isEmptyObject = (obj) => Object.getOwnPropertyNames(obj).length === 0 &&
+    Object.getOwnPropertySymbols(obj).length === 0 &&
+    Object.getPrototypeOf(obj) === Object.prototype;
 function parseTests(dir) {
     var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -99,15 +102,15 @@ function parseTests(dir) {
         try {
             for (var _b = __asyncValues(globber.globGenerator()), _c; _c = yield _b.next(), !_c.done;) {
                 const file = _c.value;
-                const jsonObj = parser.parse(file, {
+                const obj = parser.parse(file, {
                     ignoreAttributes: false,
                     attributeNamePrefix: "attr_"
                 });
-                if (jsonObj !== undefined && jsonObj !== null) {
-                    core.info(jsonObj.toString());
-                    tests.total += Number(jsonObj.testsuite.attr_tests);
-                    tests.failed += Number(jsonObj.testsuite.attr_failures);
-                    tests.skipped += Number(jsonObj.testsuite.attr_skipped);
+                if (!isEmptyObject(obj)) {
+                    core.info(obj.toString());
+                    tests.total += Number(obj.testsuite.attr_tests);
+                    tests.failed += Number(obj.testsuite.attr_failures);
+                    tests.skipped += Number(obj.testsuite.attr_skipped);
                 }
             }
         }
