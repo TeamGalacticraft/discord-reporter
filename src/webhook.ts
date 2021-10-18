@@ -63,7 +63,7 @@ export async function sendWebhook(tests: Tests, inputs: Inputs) {
                 }
             ],
             footer: {
-                text: `${commit.data.items[0]?.author?.name}`,
+                text: `${commit.data.items[0]?.author?.login}`,
                 icon_url: `https://github.com/${commit.data.items[0]?.author?.login}.png`
             },
             timestamp: new Date().toISOString()

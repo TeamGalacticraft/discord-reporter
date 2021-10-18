@@ -181,7 +181,7 @@ function sendWebhook(tests, inputs) {
                         }
                     ],
                     footer: {
-                        text: `${(_c = (_b = commit.data.items[0]) === null || _b === void 0 ? void 0 : _b.author) === null || _c === void 0 ? void 0 : _c.name}`,
+                        text: `${(_c = (_b = commit.data.items[0]) === null || _b === void 0 ? void 0 : _b.author) === null || _c === void 0 ? void 0 : _c.login}`,
                         icon_url: `https://github.com/${(_e = (_d = commit.data.items[0]) === null || _d === void 0 ? void 0 : _d.author) === null || _e === void 0 ? void 0 : _e.login}.png`
                     },
                     timestamp: new Date().toISOString()
