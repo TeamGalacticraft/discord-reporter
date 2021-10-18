@@ -38,13 +38,13 @@ export async function parseTests(dir: string): Promise<Tests> {
     }
 
     for await (const file of globber.globGenerator()) {
+        core.info(file)
         const obj: JUnitTestsuite = parser.parse(file, {
             ignoreAttributes: false,
             attributeNamePrefix: "attr_"
         });
 
         if(!isEmptyObject(obj)) {
-            core.info(obj.toString())
             tests.total += Number(obj.testsuite.attr_tests);
             tests.failed += Number(obj.testsuite.attr_failures);
             tests.skipped += Number(obj.testsuite.attr_skipped);

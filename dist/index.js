@@ -102,12 +102,12 @@ function parseTests(dir) {
         try {
             for (var _b = __asyncValues(globber.globGenerator()), _c; _c = yield _b.next(), !_c.done;) {
                 const file = _c.value;
+                core.info(file);
                 const obj = parser.parse(file, {
                     ignoreAttributes: false,
                     attributeNamePrefix: "attr_"
                 });
                 if (!isEmptyObject(obj)) {
-                    core.info(obj.toString());
                     tests.total += Number(obj.testsuite.attr_tests);
                     tests.failed += Number(obj.testsuite.attr_failures);
                     tests.skipped += Number(obj.testsuite.attr_skipped);
