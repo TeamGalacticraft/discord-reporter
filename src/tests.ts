@@ -39,6 +39,7 @@ export async function parseTests(dir: string): Promise<Tests> {
         });
 
         if(jsonObj !== undefined && jsonObj !== null) {
+            core.info(jsonObj.toString())
             tests.total += Number(jsonObj.testsuite.attr_tests);
             tests.failed += Number(jsonObj.testsuite.attr_failures);
             tests.skipped += Number(jsonObj.testsuite.attr_skipped);
