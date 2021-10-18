@@ -160,7 +160,7 @@ function sendWebhook(tests, inputs) {
                     color: inputs.outcome == "success" ? 2328118 : inputs.outcome == "failure" ? 16273737 : 10381827,
                     author: {
                         name: inputs.outcome == "success" ? "Build Succeeded" : inputs.outcome == "failure" ? "Build Failed" : "Build Unknown",
-                        icon_url: `https://i.joezwet.dev/build-${(inputs.outcome == "success" || inputs.outcome == "failure") ? inputs.outcome : "unknown"}`
+                        icon_url: `https://i.joezwet.dev/build-${(inputs.outcome == "success" || inputs.outcome == "failure") ? inputs.outcome : "unknown"}.svg`
                     },
                     description: `[\`${github.context.sha.substr(0, 7)}\`](${(_a = commit.data.items[0]) === null || _a === void 0 ? void 0 : _a.html_url}) ${commit.data.items[0].commit.message}`,
                     fields: tests.total == 0 ? [] : [

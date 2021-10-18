@@ -42,7 +42,7 @@ export async function sendWebhook(tests: Tests, inputs: Inputs) {
             color: inputs.outcome == "success" ? 2328118 : inputs.outcome == "failure" ? 16273737 : 10381827,
             author: {
               name: inputs.outcome == "success" ? "Build Succeeded" : inputs.outcome == "failure" ? "Build Failed" : "Build Unknown",
-              icon_url: `https://i.joezwet.dev/build-${(inputs.outcome == "success" || inputs.outcome == "failure") ? inputs.outcome : "unknown"}`
+              icon_url: `https://i.joezwet.dev/build-${(inputs.outcome == "success" || inputs.outcome == "failure") ? inputs.outcome : "unknown"}.svg`
             },
             description: `[\`${github.context.sha.substr(0, 7)}\`](${commit.data.items[0]?.html_url}) ${commit.data.items[0].commit.message}`,
             fields: tests.total == 0 ? [] : [
