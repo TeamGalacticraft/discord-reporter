@@ -34,7 +34,7 @@
     "package": "tsc && ncc build --source-map --license licenses.txt"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7",
+    "@types/node": "^18.14.4",
     "@vercel/ncc": "^0.31.1",
     "tslint": "^6.1.3",
     "typescript": "^4.4.4"
